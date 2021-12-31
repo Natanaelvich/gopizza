@@ -35,6 +35,7 @@
 		"react/react-in-jsx-scope": 0,
 		"react/jsx-indent-props": [2, "tab"],
 		"react/jsx-props-no-spreading": "off",
+        "camelcase" : "off",
 		"react/style-prop-object": "off",
         "react/function-component-definition" : "off",
 		"react/jsx-filename-extension": [
