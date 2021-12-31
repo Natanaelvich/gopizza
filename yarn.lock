@@ -1075,6 +1075,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@expo-google-fonts/dm-sans@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/dm-sans/-/dm-sans-0.2.0.tgz#2e095337cd38873e56b104e4c152d61adb33c12c"
+  integrity sha512-PsqVpbas6ySK/ERDRNW0OmiuIf9bJPQWDID1wyNACZuSk91d5OdJkd8BpqvQJirpJKggIGmybJ/ESxZLQCgJ9g==
+
+"@expo-google-fonts/dm-serif-display@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/dm-serif-display/-/dm-serif-display-0.2.0.tgz#b0c8bc5a30082947855c6cdf301069787bfdd4a0"
+  integrity sha512-N3VHEwYNgldtaPOHloBN/24V/76LzZrJlVR4yjY7KK2rlpCSk0ZWizGkJH5x+mPG5/BQNImNveTJX1B3kUl2MA==
+
 "@expo/config-plugins@4.0.15", "@expo/config-plugins@^4.0.2":
   version "4.0.15"
   resolved "https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-4.0.15.tgz"
