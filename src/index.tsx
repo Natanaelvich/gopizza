@@ -20,8 +20,11 @@ const Main: React.FC = () => {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <ThemeProvider theme={theme}>
         <StatusBar style="auto" />
-        <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40 }}>
-          Inter Black
+        <Text style={{ fontFamily: 'DMSerifDisplay_400Regular', fontSize: 24 }}>
+          DMSerifDisplay_400Regular
+        </Text>
+        <Text style={{ fontFamily: 'DMSans_400Regular', fontSize: 24 }}>
+          DMSans_400Regular
         </Text>
       </ThemeProvider>
     </View>
