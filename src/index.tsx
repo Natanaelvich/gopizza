@@ -5,7 +5,7 @@ import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './theme';
-import SignIn from './screens/SignIn';
+import Routes from './routes';
 
 const Main: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -19,7 +19,7 @@ const Main: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style="auto" />
-      <SignIn />
+      <Routes />
     </ThemeProvider>
   );
 };
