@@ -23,14 +23,14 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.TITLE};
   font-size: 32px;
   align-self: flex-start;
-  color: #ffff;
+  color: ${({ theme }) => theme.COLORS.TITLE};
   margin-bottom: 23px;
 `;
 
 export const ForgotPassword = styled.Text`
   font-family: ${({ theme }) => theme.FONTS.TEXT};
   font-size: 14px;
-  color: #fff;
+  color: ${({ theme }) => theme.COLORS.TITLE};
   margin: 4px 0 20px;
   align-self: flex-end;
 `;
