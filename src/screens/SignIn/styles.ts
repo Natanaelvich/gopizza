@@ -5,6 +5,8 @@ export const Container = styled(LinearGradient).attrs(
   ({ theme }) =>
     ({
       colors: theme.COLORS.GRADIENT,
+      end: { x: 0, y: 0 },
+      start: { x: 1, y: 1 },
     } as LinearGradientProps),
 )`
   flex: 1;
