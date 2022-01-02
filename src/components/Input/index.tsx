@@ -4,7 +4,7 @@ import { TextInputProps } from 'react-native';
 import * as S from './styles';
 
 export type PropsInput = {
-  type: 'primary' | 'secondary';
+  type?: 'primary' | 'secondary';
 } & TextInputProps;
 
 const Input: React.FC<PropsInput> = ({ type = 'primary', ...res }) => {
