@@ -6,6 +6,8 @@ import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './theme';
 import Routes from './routes';
+import WrapperGestureHandler from './components/WrapperGestureHandler';
+import { AuthProvider } from './hooks/useAuth';
 
 const Main: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -17,10 +19,14 @@ const Main: React.FC = () => {
     return <AppLoading />;
   }
   return (
-    <ThemeProvider theme={theme}>
-      <StatusBar style="light" translucent backgroundColor="transparent" />
-      <Routes />
-    </ThemeProvider>
+    <WrapperGestureHandler>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <StatusBar style="light" translucent backgroundColor="transparent" />
+          <Routes />
+        </ThemeProvider>
+      </AuthProvider>
+    </WrapperGestureHandler>
   );
 };
 
