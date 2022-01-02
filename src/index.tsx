@@ -18,7 +18,7 @@ const Main: React.FC = () => {
   }
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" translucent backgroundColor="transparent" />
       <Routes />
     </ThemeProvider>
   );
