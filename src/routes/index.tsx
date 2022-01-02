@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import * as React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+
 import SignIn from '@/screens/SignIn';
 import Home from '@/screens/Home';
 
@@ -18,7 +20,25 @@ declare global {
 
 const Stack = createNativeStackNavigator();
 
-function Routes(): JSX.Element {
+function Routes(): JSX.Element | null {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  const onAuthStateChanged = useCallback(
+    (userChanged: FirebaseAuthTypes.User | null) => {
+      setUser(userChanged);
+      if (initializing) setInitializing(false);
+    },
+    [initializing],
+  );
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, [onAuthStateChanged]);
+
+  if (initializing) return null;
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -26,8 +46,11 @@ function Routes(): JSX.Element {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="Home" component={Home} />
+        {user ? (
+          <Stack.Screen name="Home" component={Home} />
+        ) : (
+          <Stack.Screen name="SignIn" component={SignIn} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
