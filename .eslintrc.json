@@ -35,7 +35,8 @@
     "no-use-before-define": ["off", { "variables": true }],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/style-prop-object" : "off",
+    "react/style-prop-object": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -51,12 +52,6 @@
     "@typescript-eslint/no-unused-vars": [
       "error",
       { "argsIgnorePattern": "^_" }
-    ],
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
     ],
     "import/extensions": [
       "error",
