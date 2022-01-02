@@ -1,16 +1,31 @@
 import React from 'react';
-import { TouchableOpacityProps } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import { RectButtonProps } from 'react-native-gesture-handler';
+import { useTheme } from 'styled-components/native';
 
 import * as S from './styles';
 
-type Props = {
+export type PropsButton = {
   title: string;
-} & TouchableOpacityProps;
+  type?: 'primary' | 'secondary';
+  loading?: boolean;
+} & RectButtonProps;
 
-const Button: React.FC<Props> = ({ title, ...res }) => {
+const Button: React.FC<PropsButton> = ({
+  title,
+  type = 'primary',
+  loading = false,
+  ...res
+}) => {
+  const theme = useTheme();
+
   return (
-    <S.Container {...res}>
-      <S.Title>{title}</S.Title>
+    <S.Container type={type} enabled={!loading} {...res}>
+      {loading ? (
+        <ActivityIndicator size="small" color={theme.COLORS.TITLE} />
+      ) : (
+        <S.Title>{title}</S.Title>
+      )}
     </S.Container>
   );
 };
