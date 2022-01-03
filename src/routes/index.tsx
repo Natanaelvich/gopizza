@@ -9,6 +9,8 @@ import SignIn from '@/screens/SignIn';
 import Home from '@/screens/Home';
 import Requests from '@/screens/Requests';
 import MyTabBar from '@/components/MyTabBar';
+import { useAuth } from '@/hooks/useAuth';
+import RegisterProduct from '@/screens/RegisterProduct';
 
 declare global {
   namespace ReactNavigation {
@@ -17,6 +19,7 @@ declare global {
       SignIn: undefined;
       Requests: undefined;
       Request: undefined;
+      RegisterProduct: undefined;
     }
   }
 }
@@ -48,15 +51,15 @@ function MyTabs() {
 }
 
 function Routes(): JSX.Element | null {
+  const { changeUser, user } = useAuth();
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   const onAuthStateChanged = useCallback(
-    (userChanged: FirebaseAuthTypes.User | null) => {
-      setUser(userChanged);
+    async (userChanged: FirebaseAuthTypes.User | null) => {
+      await changeUser(userChanged);
       if (initializing) setInitializing(false);
     },
-    [initializing],
+    [initializing, changeUser],
   );
 
   useEffect(() => {
@@ -73,11 +76,18 @@ function Routes(): JSX.Element | null {
           headerShown: false,
         }}
       >
-        {user ? (
+        {user && !user.isAdmin && (
           <Stack.Screen name="MyTabs" component={MyTabs} />
-        ) : (
-          <Stack.Screen name="SignIn" component={SignIn} />
         )}
+
+        {user && user.isAdmin && (
+          <>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="RegisterProduct" component={RegisterProduct} />
+          </>
+        )}
+
+        {!user && <Stack.Screen name="SignIn" component={SignIn} />}
       </Stack.Navigator>
     </NavigationContainer>
   );
