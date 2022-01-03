@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
-import Input from '@/components/Input';
 
+import Input from '@/components/Input';
 import * as S from './styles';
 import Button from '@/components/Button';
 import { images } from '@/assets';
 import { useAuth } from '@/hooks/useAuth';
 
 const SignIn: React.FC = () => {
-  const navigation = useNavigation();
-  const { signUpOrSignIn } = useAuth();
+  const { signUpOrSignIn, forgotPassword } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,12 +18,14 @@ const SignIn: React.FC = () => {
     try {
       setLoading(true);
       await signUpOrSignIn({ email, password });
-      navigation.navigate('Home');
     } catch (error: any) {
       Alert.alert(error.message);
-    } finally {
       setLoading(false);
     }
+  };
+
+  const handleForgotPassword = () => {
+    forgotPassword(email);
   };
 
   return (
@@ -47,7 +47,9 @@ const SignIn: React.FC = () => {
         secureTextEntry
       />
 
-      <S.ForgotPassword>Esqueci minha senha</S.ForgotPassword>
+      <S.ForgotPassword onPress={handleForgotPassword}>
+        Esqueci minha senha
+      </S.ForgotPassword>
       <Button
         title="ENTRAR"
         type="secondary"
