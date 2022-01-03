@@ -22,7 +22,7 @@ const Button: React.FC<PropsButton> = ({
   return (
     <S.Container type={type} enabled={!loading} {...res}>
       {loading ? (
-        <ActivityIndicator size="small" color={theme.COLORS.TITLE} />
+        <ActivityIndicator color={theme.COLORS.TITLE} />
       ) : (
         <S.Title>{title}</S.Title>
       )}
