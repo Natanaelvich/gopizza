@@ -54,6 +54,7 @@ export default function MyTabBar({
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
+            key={route.key}
           >
             <S.Title isFocused={isFocused}>{label}</S.Title>
             {route.name === 'Requests' && (
