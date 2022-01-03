@@ -13,18 +13,19 @@ export const Container = styled.TextInput.attrs<PropsInput>(
 )<PropsInput>`
   border-radius: 12px;
   width: 100%;
-  height: 56px;
   margin-bottom: 16px;
   padding: 0 20px;
 
   font-size: 14px;
 
-  ${({ theme, type }) => css`
+  ${({ theme, type, multiline }) => css`
     font-family: ${theme.FONTS.TEXT};
     border: 1px solid ${theme.COLORS.SHAPE};
     color: ${type === 'primary'
       ? theme.COLORS.SECONDARY_900
       : theme.COLORS.SECONDARY_900};
+    background: ${type === 'primary' ? '#fff' : 'transparent'};
+    height: ${multiline ? 80 : 56}px;
   `}
 `;
 
