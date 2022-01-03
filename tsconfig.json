@@ -10,6 +10,16 @@
     "paths": {
       "@/*": ["./src/*"],
     },
+    "plugins": [
+        {
+          "name": "typescript-styled-plugin",
+          "lint": {
+            "validProperties": [
+              "elevation"
+            ]
+          }
+        }
+      ]
   },
   "extends": "expo/tsconfig.base"
 }
