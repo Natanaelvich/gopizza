@@ -4,8 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignIn from '@/screens/SignIn';
 import Home from '@/screens/Home';
+import Requests from '@/screens/Requests';
+import MyTabBar from '@/components/MyTabBar';
 
 declare global {
   namespace ReactNavigation {
@@ -19,6 +22,30 @@ declare global {
 }
 
 const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      tabBar={props => <MyTabBar {...props} />}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ tabBarLabel: 'Cardápio' }}
+      />
+      <Tab.Screen
+        name="Requests"
+        component={Requests}
+        options={{ tabBarLabel: 'Pedidos' }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function Routes(): JSX.Element | null {
   const [initializing, setInitializing] = useState(true);
@@ -47,7 +74,7 @@ function Routes(): JSX.Element | null {
         }}
       >
         {user ? (
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="MyTabs" component={MyTabs} />
         ) : (
           <Stack.Screen name="SignIn" component={SignIn} />
         )}
