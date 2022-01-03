@@ -36,3 +36,11 @@ export const Content = styled.View`
   margin-top: -24px;
   padding-top: 50px;
 `;
+
+export const WrapperButton = styled.View`
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  background: #f3f3f3;
+`;
