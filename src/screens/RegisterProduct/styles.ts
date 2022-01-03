@@ -1,8 +1,13 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
+import { ScrollViewProps } from 'react-native';
 import Button from '@/components/Button';
 
-export const Container = styled.ScrollView`
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    paddingBottom: 27,
+  },
+} as ScrollViewProps)`
   flex: 1;
 `;
 
@@ -81,4 +86,6 @@ export const LabelMaxCharsInput = styled.Text`
   color: #572d31;
 `;
 
-export const ButtonRegister = styled(Button)``;
+export const ButtonRegister = styled(Button)`
+  margin-top: 16px;
+`;

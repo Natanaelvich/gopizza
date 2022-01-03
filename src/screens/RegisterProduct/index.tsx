@@ -48,6 +48,7 @@ const RegisterProduct: React.FC = () => {
         <InputPrice />
         <InputPrice />
         <InputPrice />
+        <S.ButtonRegister title="Cadastrar pizza" />
       </S.WrapperForm>
     </S.Container>
   );
