@@ -14,7 +14,7 @@ const Menu: React.FC = () => {
     if (user?.isAdmin) {
       navigation.navigate('RegisterProduct', { editMode: true });
     } else {
-      navigation.navigate('RegisterProduct');
+      navigation.navigate('Request');
     }
   };
 
