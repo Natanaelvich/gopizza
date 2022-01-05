@@ -1,5 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
+import { TouchableOpacityProps } from 'react-native';
 import { useTheme } from 'styled-components/native';
 
 import * as S from './styles';
@@ -7,11 +8,13 @@ import * as S from './styles';
 const imageUri =
   'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png';
 
-const CardProduct: React.FC = () => {
+type Props = {} & TouchableOpacityProps;
+
+const CardProduct: React.FC<Props> = ({ ...res }) => {
   const theme = useTheme();
 
   return (
-    <S.Container>
+    <S.Container {...res}>
       <S.WrapperImage>
         <S.ProducImage source={{ uri: imageUri }} />
       </S.WrapperImage>

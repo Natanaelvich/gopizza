@@ -1,7 +1,7 @@
 import { ImageProps } from 'react-native';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   margin-bottom: 12px;
