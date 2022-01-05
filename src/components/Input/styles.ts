@@ -23,7 +23,7 @@ export const Container = styled.TextInput.attrs<PropsInput>(
     border: 1px solid ${theme.COLORS.SHAPE};
     color: ${type === 'primary'
       ? theme.COLORS.SECONDARY_900
-      : theme.COLORS.SECONDARY_900};
+      : theme.COLORS.TITLE};
     background: ${type === 'primary' ? '#fff' : 'transparent'};
     height: ${multiline ? 80 : 56}px;
   `}

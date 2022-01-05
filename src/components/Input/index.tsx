@@ -7,8 +7,19 @@ export type PropsInput = {
   type?: 'primary' | 'secondary';
 } & TextInputProps;
 
-const Input: React.FC<PropsInput> = ({ type = 'primary', ...res }) => {
-  return <S.Container type={type} {...res} />;
+const Input: React.FC<PropsInput> = ({
+  type = 'primary',
+  multiline,
+  ...res
+}) => {
+  return (
+    <S.Container
+      type={type}
+      maxLength={multiline ? 60 : undefined}
+      multiline={multiline}
+      {...res}
+    />
+  );
 };
 
 export default Input;
