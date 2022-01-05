@@ -1,9 +1,23 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { useAuth } from '@/hooks/useAuth';
 import CardProduct from '../CardProduct';
 
 import * as S from './styles';
 
 const Menu: React.FC = () => {
+  const navigation = useNavigation();
+
+  const { user } = useAuth();
+
+  const handleNavigate = () => {
+    if (user?.isAdmin) {
+      navigation.navigate('RegisterProduct', { editMode: true });
+    } else {
+      navigation.navigate('RegisterProduct');
+    }
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -12,7 +26,7 @@ const Menu: React.FC = () => {
       </S.Header>
 
       <S.ProductsList>
-        <CardProduct />
+        <CardProduct onPress={handleNavigate} />
         <CardProduct />
         <CardProduct />
         <CardProduct />
