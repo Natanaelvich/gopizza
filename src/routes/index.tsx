@@ -19,7 +19,11 @@ declare global {
       SignIn: undefined;
       Requests: undefined;
       Request: undefined;
-      RegisterProduct: undefined;
+      RegisterProduct:
+        | {
+            editMode: boolean;
+          }
+        | undefined;
     }
   }
 }
