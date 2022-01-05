@@ -11,6 +11,7 @@ import Requests from '@/screens/Requests';
 import MyTabBar from '@/components/MyTabBar';
 import { useAuth } from '@/hooks/useAuth';
 import RegisterProduct from '@/screens/RegisterProduct';
+import Request from '@/screens/Request';
 
 declare global {
   namespace ReactNavigation {
@@ -81,14 +82,16 @@ function Routes(): JSX.Element | null {
         }}
       >
         {user && !user.isAdmin && (
-          <Stack.Screen name="MyTabs" component={MyTabs} />
+          <>
+            <Stack.Screen name="MyTabs" component={MyTabs} />
+            <Stack.Screen name="Request" component={Request} />
+          </>
         )}
 
-        {user && user.isAdmin && (
-          <>
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="RegisterProduct" component={RegisterProduct} />
-          </>
+        {user && user.isAdmin && <Stack.Screen name="Home" component={Home} />}
+
+        {user && (
+          <Stack.Screen name="RegisterProduct" component={RegisterProduct} />
         )}
 
         {!user && <Stack.Screen name="SignIn" component={SignIn} />}
