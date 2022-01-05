@@ -1,5 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Input from '@/components/Input';
 
 import * as S from './styles';
@@ -7,10 +8,15 @@ import Photo from './_components/Photo';
 import InputPrice from './_components/InputPrice';
 
 const RegisterProduct: React.FC = () => {
+  const { goBack } = useNavigation();
+  const { params } = useRoute();
+
+  const { editMode } = (params as { editMode?: string }) || {};
+
   return (
     <S.Container>
       <S.Header>
-        <S.ButtonBack>
+        <S.ButtonBack onPress={goBack}>
           <MaterialIcons name="keyboard-arrow-left" size={24} color="white" />
         </S.ButtonBack>
         <S.Title>Cadastrar</S.Title>
@@ -48,7 +54,9 @@ const RegisterProduct: React.FC = () => {
         <InputPrice />
         <InputPrice />
         <InputPrice />
-        <S.ButtonRegister title="Cadastrar pizza" />
+        <S.ButtonRegister
+          title={`${editMode ? 'Editar' : 'Cadastrar'}  pizza`}
+        />
       </S.WrapperForm>
     </S.Container>
   );
