@@ -63,6 +63,7 @@ export const Title = styled.Text`
 
 export const WrapperForm = styled.View`
   padding: 0 24px;
+  margin-top: 46px;
 `;
 
 export const WrapperLabels = styled.View`
@@ -77,6 +78,12 @@ export const LabelInput = styled.Text`
   font-size: 14px;
 
   color: #572d31;
+`;
+
+export const WrapperRadios = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
 `;
 
 export const ButtonRegister = styled(Button)`
