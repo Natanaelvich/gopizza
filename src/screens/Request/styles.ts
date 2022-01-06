@@ -2,6 +2,7 @@ import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
 import { ImageProps, ScrollViewProps } from 'react-native';
 import Button from '@/components/Button';
+import Input from '@/components/Input';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -78,12 +79,33 @@ export const LabelInput = styled.Text`
   font-size: 14px;
 
   color: #572d31;
+  text-align: left;
+  width: 47%;
 `;
 
 export const WrapperRadios = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 40px;
+`;
+
+export const WrapperInputs = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const InputNumber = styled(Input)`
+  width: 47%;
+  text-align: center;
+`;
+
+export const Total = styled.Text`
+  font-family: ${({ theme }) => theme.FONTS.TEXT};
+  font-size: 14px;
+
+  color: #572d31;
+  align-self: flex-end;
+  margin: 16px 0 24px;
 `;
 
 export const ButtonRegister = styled(Button)`

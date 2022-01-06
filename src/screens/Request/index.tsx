@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import * as S from './styles';
 import Radio from './_components/Radio';
+import Button from '@/components/Button';
 
 const imageUri =
   'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png';
@@ -62,6 +63,15 @@ const Request: React.FC = () => {
           <S.LabelInput>Número da mesa</S.LabelInput>
           <S.LabelInput>Quantidade</S.LabelInput>
         </S.WrapperLabels>
+
+        <S.WrapperInputs>
+          <S.InputNumber keyboardType="number-pad" />
+          <S.InputNumber keyboardType="number-pad" />
+        </S.WrapperInputs>
+
+        <S.Total>Total: R$ 10,00</S.Total>
+
+        <Button title="Confirmar pedido" />
       </S.WrapperForm>
     </S.Container>
   );
