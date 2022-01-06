@@ -1,7 +1,6 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
 import { ImageProps, ScrollViewProps } from 'react-native';
-import Button from '@/components/Button';
 import Input from '@/components/Input';
 
 export const Container = styled.ScrollView.attrs({
@@ -106,8 +105,4 @@ export const Total = styled.Text`
   color: #572d31;
   align-self: flex-end;
   margin: 16px 0 24px;
-`;
-
-export const ButtonRegister = styled(Button)`
-  margin-top: 16px;
 `;
