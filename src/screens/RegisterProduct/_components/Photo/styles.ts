@@ -6,6 +6,7 @@ export const WrapperImage = styled.View`
   width: 160px;
   elevation: 12;
   border-radius: 80px;
+  overflow: hidden;
 `;
 
 export const ProducImage = styled.Image.attrs({
