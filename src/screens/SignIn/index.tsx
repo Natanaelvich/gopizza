@@ -30,32 +30,34 @@ const SignIn: React.FC = () => {
 
   return (
     <S.Container>
-      <S.Logo source={images.pizzaSignin} />
-      <S.Title>Login</S.Title>
+      <S.Content>
+        <S.Logo source={images.pizzaSignin} />
+        <S.Title>Login</S.Title>
 
-      <Input
-        value={email}
-        onChangeText={setEmail}
-        placeholder="E-mail"
-        type="secondary"
-      />
-      <Input
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Password"
-        type="secondary"
-        secureTextEntry
-      />
+        <Input
+          value={email}
+          onChangeText={setEmail}
+          placeholder="E-mail"
+          type="secondary"
+        />
+        <Input
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+          type="secondary"
+          secureTextEntry
+        />
 
-      <S.ForgotPassword onPress={handleForgotPassword}>
-        Esqueci minha senha
-      </S.ForgotPassword>
-      <Button
-        title="ENTRAR"
-        type="secondary"
-        onPress={handleLogin}
-        loading={loading}
-      />
+        <S.ForgotPassword onPress={handleForgotPassword}>
+          Esqueci minha senha
+        </S.ForgotPassword>
+        <Button
+          title="ENTRAR"
+          type="secondary"
+          onPress={handleLogin}
+          loading={loading}
+        />
+      </S.Content>
     </S.Container>
   );
 };

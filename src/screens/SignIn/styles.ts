@@ -1,7 +1,14 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
+import { ScrollViewProps } from 'react-native';
 import styled from 'styled-components/native';
 
-export const Container = styled(LinearGradient).attrs(
+export const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+} as ScrollViewProps)``;
+
+export const Content = styled(LinearGradient).attrs(
   ({ theme }) =>
     ({
       colors: theme.COLORS.GRADIENT,
