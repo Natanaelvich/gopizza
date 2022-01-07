@@ -1,6 +1,8 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
+
 import Input from '@/components/Input';
 
 import * as S from './styles';
@@ -12,6 +14,20 @@ const RegisterProduct: React.FC = () => {
   const { params } = useRoute();
 
   const { editMode } = (params as { editMode?: string }) || {};
+
+  const [image, setImage] = useState('');
+
+  const handlePickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   return (
     <S.Container>
@@ -27,9 +43,15 @@ const RegisterProduct: React.FC = () => {
       </S.Header>
 
       <S.WrapperUpload>
-        <Photo />
+        <Photo uri={image} />
 
-        <S.ButtonUpload title="Carregar" type="secondary" />
+        {!image && (
+          <S.ButtonUpload
+            title="Carregar"
+            type="secondary"
+            onPress={handlePickImage}
+          />
+        )}
       </S.WrapperUpload>
 
       <S.WrapperForm>

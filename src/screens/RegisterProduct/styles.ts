@@ -9,6 +9,7 @@ export const Container = styled.ScrollView.attrs({
   },
 } as ScrollViewProps)`
   flex: 1;
+  background: ${({ theme }) => theme.COLORS.BACKGROUND};
 `;
 
 export const Header = styled(LinearGradient).attrs(
@@ -53,12 +54,13 @@ export const ButtonDeleteText = styled.Text`
 export const WrapperUpload = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 32px 46px;
 `;
 
 export const ButtonUpload = styled(Button)`
   width: 90px;
+  margin-left: auto;
 `;
 
 export const WrapperForm = styled.View`
