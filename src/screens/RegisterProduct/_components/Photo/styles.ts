@@ -14,6 +14,7 @@ export const ProducImage = styled.Image.attrs({
 } as ImageProps)`
   width: 100%;
   height: 100%;
+  background: ${({ theme }) => theme.COLORS.SHAPE};
 `;
 
 export const Container = styled.View`

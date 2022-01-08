@@ -42,6 +42,7 @@ export const WrapperImage = styled.View`
   margin-top: -120px;
   elevation: 12;
   align-self: center;
+  overflow: hidden;
 `;
 
 export const ProducImage = styled.Image.attrs({
@@ -49,6 +50,7 @@ export const ProducImage = styled.Image.attrs({
 } as ImageProps)`
   width: 100%;
   height: 100%;
+  background: ${({ theme }) => theme.COLORS.SHAPE};
 `;
 
 export const Title = styled.Text`
