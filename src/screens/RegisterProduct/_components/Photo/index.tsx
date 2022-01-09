@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductImage from '@/components/ProductImage';
 
 import * as S from './styles';
 
@@ -8,11 +9,7 @@ type Props = {
 
 const Photo: React.FC<Props> = ({ uri }) => {
   if (uri) {
-    return (
-      <S.WrapperImage>
-        <S.ProducImage source={{ uri }} />
-      </S.WrapperImage>
-    );
+    return <ProductImage uri={uri} width={160} height={160} />;
   }
 
   return (

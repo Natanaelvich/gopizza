@@ -1,5 +1,5 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
-import { ImageProps, ScrollViewProps } from 'react-native';
+import { ScrollViewProps } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 export const Container = styled.View`
@@ -51,22 +51,6 @@ export const Request = styled.TouchableOpacity<{
     border-bottom-width: ${borderBottom ? 1 : 0}px;
     border-bottom-color: ${borderBottom ? theme.COLORS.SHAPE : 'transparent'};
   `}
-`;
-
-export const WrapperImage = styled.View`
-  height: 104px;
-  width: 104px;
-  elevation: 12;
-  border-radius: 52px;
-  overflow: hidden;
-`;
-
-export const RequestImage = styled.Image.attrs({
-  resizeMode: 'contain',
-} as ImageProps)`
-  width: 100%;
-  height: 100%;
-  background: ${({ theme }) => theme.COLORS.SHAPE};
 `;
 
 export const RequesTitle = styled.Text`

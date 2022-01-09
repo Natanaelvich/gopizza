@@ -1,21 +1,4 @@
-import { ImageProps } from 'react-native';
 import styled from 'styled-components/native';
-
-export const WrapperImage = styled.View`
-  height: 160px;
-  width: 160px;
-  elevation: 12;
-  border-radius: 80px;
-  overflow: hidden;
-`;
-
-export const ProducImage = styled.Image.attrs({
-  resizeMode: 'contain',
-} as ImageProps)`
-  width: 100%;
-  height: 100%;
-  background: ${({ theme }) => theme.COLORS.SHAPE};
-`;
 
 export const Container = styled.View`
   height: 160px;

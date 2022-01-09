@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductImage from '@/components/ProductImage';
 
 import * as S from './styles';
 
@@ -45,9 +46,7 @@ const Requests: React.FC = () => {
               index < requests.length - 2
             }
           >
-            <S.WrapperImage>
-              <S.RequestImage source={{ uri: r.image }} />
-            </S.WrapperImage>
+            <ProductImage uri={r.image} width={104} height={104} />
             <S.RequesTitle>{r.title}</S.RequesTitle>
             <S.RequestDescription>{r.description}</S.RequestDescription>
 

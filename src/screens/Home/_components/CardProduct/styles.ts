@@ -1,26 +1,9 @@
-import { ImageProps } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   margin-bottom: 12px;
-`;
-
-export const WrapperImage = styled.View`
-  height: 104px;
-  width: 104px;
-  elevation: 12;
-  border-radius: 52px;
-  overflow: hidden;
-`;
-
-export const ProducImage = styled.Image.attrs({
-  resizeMode: 'contain',
-} as ImageProps)`
-  width: 100%;
-  height: 100%;
-  background: ${({ theme }) => theme.COLORS.SHAPE};
 `;
 
 export const WrapperDesc = styled.View`

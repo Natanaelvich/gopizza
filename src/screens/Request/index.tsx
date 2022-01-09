@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import * as S from './styles';
 import Radio from './_components/Radio';
 import Button from '@/components/Button';
+import ProductImage from '@/components/ProductImage';
 
 const imageUri =
   'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png';
@@ -38,9 +39,10 @@ const Request: React.FC = () => {
           <MaterialIcons name="keyboard-arrow-left" size={24} color="white" />
         </S.ButtonBack>
       </S.Header>
-      <S.WrapperImage>
-        <S.ProducImage source={{ uri: imageUri }} />
-      </S.WrapperImage>
+
+      <S.ProductImageWrapper>
+        <ProductImage uri={imageUri} width={240} height={240} />
+      </S.ProductImageWrapper>
       <S.Title>Margherita</S.Title>
 
       <S.WrapperForm>

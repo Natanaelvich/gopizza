@@ -2,6 +2,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
 import { useTheme } from 'styled-components/native';
+import ProductImage from '@/components/ProductImage';
 
 import * as S from './styles';
 
@@ -15,9 +16,7 @@ const CardProduct: React.FC<Props> = ({ ...res }) => {
 
   return (
     <S.Container {...res}>
-      <S.WrapperImage>
-        <S.ProducImage source={{ uri: imageUri }} />
-      </S.WrapperImage>
+      <ProductImage uri={imageUri} width={104} height={104} />
       <S.WrapperDesc>
         <S.Title>Margherita</S.Title>
         <S.Description>

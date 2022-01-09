@@ -1,7 +1,8 @@
 import { LinearGradient, LinearGradientProps } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
-import { ImageProps, ScrollViewProps } from 'react-native';
+import { ScrollViewProps } from 'react-native';
 import Input from '@/components/Input';
+import ProductImage from '@/components/ProductImage';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -35,22 +36,9 @@ export const ButtonBack = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const WrapperImage = styled.View`
-  height: 240px;
-  width: 240px;
-  border-radius: 120px;
+export const ProductImageWrapper = styled.View`
   margin-top: -120px;
-  elevation: 12;
   align-self: center;
-  overflow: hidden;
-`;
-
-export const ProducImage = styled.Image.attrs({
-  resizeMode: 'contain',
-} as ImageProps)`
-  width: 100%;
-  height: 100%;
-  background: ${({ theme }) => theme.COLORS.SHAPE};
 `;
 
 export const Title = styled.Text`
