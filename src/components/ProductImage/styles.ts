@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 
 export const WrapperImage = styled.View`
   elevation: 12;
-  border-radius: 52px;
   overflow: hidden;
 `;
 
