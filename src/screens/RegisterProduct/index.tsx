@@ -1,7 +1,12 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+import uuid from 'react-native-uuid';
+
+import { Alert } from 'react-native';
 
 import Input from '@/components/Input';
 
@@ -16,9 +21,14 @@ const RegisterProduct: React.FC = () => {
   const { editMode } = (params as { editMode?: string }) || {};
 
   const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [priceP, setPriceP] = useState('');
+  const [priceM, setPriceM] = useState('');
+  const [priceG, setPriceG] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePickImage = async () => {
-    // No permissions request is necessary for launching the image library
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -26,6 +36,64 @@ const RegisterProduct: React.FC = () => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+    }
+  };
+
+  useEffect(() => {
+    setName('Mussarela');
+    setDescription(
+      'coberta com molho de tomate, queijo tipo mussarela, azeitonas pretas e orégano e massa com fermentação natural, oferece mais sabor e qualidade à sua mesa.',
+    );
+    setPriceP('12');
+    setPriceM('24');
+    setPriceG('35');
+  }, []);
+
+  const handleRegisterProduct = async () => {
+    try {
+      setIsLoading(true);
+
+      if (
+        !name.trim() ||
+        !description.trim() ||
+        !priceP.trim() ||
+        !priceM.trim() ||
+        !priceG.trim()
+      ) {
+        Alert.alert('Todos os campos são obrigatórios');
+        return;
+      }
+
+      let imageUrl = '';
+
+      if (image) {
+        const imageId = uuid.v4();
+
+        const reference = storage().ref(`images/products/${imageId}.png`);
+
+        await reference.putFile(image);
+
+        imageUrl = await reference.getDownloadURL();
+      }
+
+      await firestore()
+        .collection('products')
+        .add({
+          name,
+          description,
+          priceP: Number(priceP),
+          priceM: Number(priceM),
+          priceG: Number(priceG),
+          imageUrl,
+        });
+
+      Alert.alert('Producto cadastrado com sucesso');
+      setIsLoading(false);
+
+      goBack();
+    } catch (error) {
+      setIsLoading(false);
+      Alert.alert('Erro ao tentar cadastrar produto!');
     }
   };
 
@@ -59,25 +127,26 @@ const RegisterProduct: React.FC = () => {
           <S.LabelInput>Nome</S.LabelInput>
         </S.WrapperLabels>
 
-        <Input />
+        <Input value={name} onChangeText={setName} />
 
         <S.WrapperLabels>
           <S.LabelInput>Descrição</S.LabelInput>
 
           <S.LabelMaxCharsInput>Max 60 caracteres</S.LabelMaxCharsInput>
         </S.WrapperLabels>
-        <Input multiline />
+        <Input multiline value={description} onChangeText={setDescription} />
 
         <S.WrapperLabels>
           <S.LabelInput>Descrição</S.LabelInput>
         </S.WrapperLabels>
 
-        <InputPrice />
-        <InputPrice />
-        <InputPrice />
-        <InputPrice />
+        <InputPrice size="P" value={priceP} onChangeText={setPriceP} />
+        <InputPrice size="M" value={priceM} onChangeText={setPriceM} />
+        <InputPrice size="G" value={priceG} onChangeText={setPriceG} />
         <S.ButtonRegister
           title={`${editMode ? 'Editar' : 'Cadastrar'}  pizza`}
+          onPress={handleRegisterProduct}
+          loading={isLoading}
         />
       </S.WrapperForm>
     </S.Container>
