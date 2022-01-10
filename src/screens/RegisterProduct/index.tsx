@@ -65,6 +65,7 @@ const RegisterProduct: React.FC = () => {
       }
 
       let imageUrl = '';
+      let imagePath = '';
 
       if (image) {
         const imageId = uuid.v4();
@@ -74,6 +75,7 @@ const RegisterProduct: React.FC = () => {
         await reference.putFile(image);
 
         imageUrl = await reference.getDownloadURL();
+        imagePath = reference.fullPath;
       }
 
       await firestore()
@@ -86,6 +88,7 @@ const RegisterProduct: React.FC = () => {
           priceM: Number(priceM),
           priceG: Number(priceG),
           imageUrl,
+          imagePath,
         });
 
       Alert.alert('Producto cadastrado com sucesso');
