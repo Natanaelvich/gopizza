@@ -80,6 +80,7 @@ const RegisterProduct: React.FC = () => {
         .collection('products')
         .add({
           name,
+          name_insensitive: name.trim().toLowerCase(),
           description,
           priceP: Number(priceP),
           priceM: Number(priceM),
