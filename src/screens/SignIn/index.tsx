@@ -18,7 +18,7 @@ const SignIn: React.FC = () => {
     try {
       setLoading(true);
       await signUpOrSignIn({ email, password });
-    } catch (error: any) {
+    } catch (error) {
       Alert.alert(error.message);
       setLoading(false);
     }

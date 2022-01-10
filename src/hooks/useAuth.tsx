@@ -54,7 +54,7 @@ const AuthProvider: React.FC = ({ children }) => {
       const userData = userRef.data();
 
       setUser({ ..._user.user, isAdmin: userData?.isAdmin });
-    } catch (error: any) {
+    } catch (error) {
       throw new Error('Falha ao realizar login');
     }
   };
@@ -62,7 +62,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const signUpOrSignIn = async ({ email, password }: Payload) => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
-    } catch (error: any) {
+    } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         await signIn({ email, password });
 
@@ -100,7 +100,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
       await auth().sendPasswordResetEmail(email);
       Alert.alert('E-mail enviado para redefinir senha');
-    } catch (error: any) {
+    } catch (error) {
       Alert.alert('Falha ao enviar e-mail de redefinição de senha');
     }
   };
