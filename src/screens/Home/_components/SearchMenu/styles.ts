@@ -7,7 +7,7 @@ export const Container = styled.View`
   padding: 0 2px;
 `;
 
-export const Input = styled.TextInput`
+export const WrapperInput = styled.View`
   flex: 1;
   margin-right: 7px;
   height: 48px;
@@ -16,6 +16,20 @@ export const Input = styled.TextInput`
   border: 1px solid #f0f0f0;
 
   border-radius: 16px;
+  flex-direction: row;
+  overflow: hidden;
+`;
+
+export const Input = styled.TextInput`
+  flex: 1;
+  padding-left: 16px;
+`;
+
+export const ClearInput = styled.TouchableOpacity`
+  padding: 6px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ButtonSearch = styled.TouchableOpacity`
