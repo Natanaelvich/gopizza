@@ -28,5 +28,6 @@ export const ProductsList = styled.ScrollView.attrs({
   contentContainerStyle: {
     paddingHorizontal: 24,
     paddingTop: 20,
+    flexGrow: 1,
   },
 } as ScrollViewProps)``;
