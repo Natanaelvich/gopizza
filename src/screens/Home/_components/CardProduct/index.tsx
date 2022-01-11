@@ -19,7 +19,7 @@ const CardProduct: React.FC<Props> = ({ product, ...res }) => {
       <ProductImage uri={product.imageUrl} width={104} height={104} />
       <S.WrapperDesc>
         <S.Title>{product.name}</S.Title>
-        <S.Description>{product.description}</S.Description>
+        <S.Description numberOfLines={2}>{product.description}</S.Description>
 
         <S.WrapperIconArrowRight>
           <MaterialIcons
