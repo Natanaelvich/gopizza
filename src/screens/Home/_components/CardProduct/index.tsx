@@ -5,23 +5,21 @@ import { useTheme } from 'styled-components/native';
 import ProductImage from '@/components/ProductImage';
 
 import * as S from './styles';
+import { Product } from '../..';
 
-const imageUri =
-  'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png';
+type Props = {
+  product: Product;
+} & TouchableOpacityProps;
 
-type Props = TouchableOpacityProps;
-
-const CardProduct: React.FC<Props> = ({ ...res }) => {
+const CardProduct: React.FC<Props> = ({ product, ...res }) => {
   const theme = useTheme();
 
   return (
     <S.Container {...res}>
-      <ProductImage uri={imageUri} width={104} height={104} />
+      <ProductImage uri={product.imageUrl} width={104} height={104} />
       <S.WrapperDesc>
-        <S.Title>Margherita</S.Title>
-        <S.Description>
-          Mussarela, manjericão fresco, parmesão e tomate.
-        </S.Description>
+        <S.Title>{product.name}</S.Title>
+        <S.Description>{product.description}</S.Description>
 
         <S.WrapperIconArrowRight>
           <MaterialIcons

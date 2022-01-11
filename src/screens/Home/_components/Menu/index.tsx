@@ -4,8 +4,13 @@ import { useAuth } from '@/hooks/useAuth';
 import CardProduct from '../CardProduct';
 
 import * as S from './styles';
+import { Product } from '../..';
 
-const Menu: React.FC = () => {
+type Props = {
+  products: Product[];
+};
+
+const Menu: React.FC<Props> = ({ products }) => {
   const navigation = useNavigation();
 
   const { user } = useAuth();
@@ -26,13 +31,9 @@ const Menu: React.FC = () => {
       </S.Header>
 
       <S.ProductsList>
-        <CardProduct onPress={handleNavigate} />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
+        {products.map(p => (
+          <CardProduct onPress={handleNavigate} product={p} />
+        ))}
       </S.ProductsList>
     </S.Container>
   );
