@@ -6,7 +6,7 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignIn from '@/screens/SignIn';
-import Home from '@/screens/Home';
+import Home, { Product } from '@/screens/Home';
 import Requests from '@/screens/Requests';
 import MyTabBar from '@/components/MyTabBar';
 import { useAuth } from '@/hooks/useAuth';
@@ -23,6 +23,7 @@ declare global {
       RegisterProduct:
         | {
             editMode: boolean;
+            product: Product;
           }
         | undefined;
     }
