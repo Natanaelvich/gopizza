@@ -13,12 +13,14 @@ import Input from '@/components/Input';
 import * as S from './styles';
 import Photo from './_components/Photo';
 import InputPrice from './_components/InputPrice';
+import { Product } from '../Home';
 
 const RegisterProduct: React.FC = () => {
   const { goBack } = useNavigation();
   const { params } = useRoute();
 
-  const { editMode } = (params as { editMode?: string }) || {};
+  const { editMode, product } =
+    (params as { editMode: string; product: Product }) || {};
 
   const [image, setImage] = useState('');
   const [name, setName] = useState('');
@@ -40,27 +42,46 @@ const RegisterProduct: React.FC = () => {
   };
 
   useEffect(() => {
-    setName('Mussarela');
-    setDescription(
-      'coberta com molho de tomate, queijo tipo mussarela, azeitonas pretas e orégano e massa com fermentação natural, oferece mais sabor e qualidade à sua mesa.',
-    );
-    setPriceP('12');
-    setPriceM('24');
-    setPriceG('35');
-  }, []);
+    if (!editMode && !product) {
+      setName('Mussarela');
+      setDescription(
+        'coberta com molho de tomate, queijo tipo mussarela, azeitonas pretas e orégano e massa com fermentação natural, oferece mais sabor e qualidade à sua mesa.',
+      );
+      setPriceP('12');
+      setPriceM('24');
+      setPriceG('35');
+    } else {
+      setImage(product.imageUrl);
+      setName(product.name);
+      setDescription(product.description);
+      setPriceP(String(product.priceP));
+      setPriceM(String(product.priceM));
+      setPriceG(String(product.priceG));
+    }
+  }, [editMode, product]);
+
+  function validateForm() {
+    if (
+      !name.trim() ||
+      !description.trim() ||
+      !priceP.trim() ||
+      !priceM.trim() ||
+      !priceG.trim()
+    ) {
+      Alert.alert('Todos os campos são obrigatórios');
+      return false;
+    }
+
+    return true;
+  }
 
   const handleRegisterProduct = async () => {
     try {
       setIsLoading(true);
 
-      if (
-        !name.trim() ||
-        !description.trim() ||
-        !priceP.trim() ||
-        !priceM.trim() ||
-        !priceG.trim()
-      ) {
-        Alert.alert('Todos os campos são obrigatórios');
+      const formValid = validateForm();
+
+      if (!formValid) {
         return;
       }
 
@@ -91,13 +112,74 @@ const RegisterProduct: React.FC = () => {
           imagePath,
         });
 
-      Alert.alert('Producto cadastrado com sucesso');
+      Alert.alert('Produto cadastrado com sucesso');
       setIsLoading(false);
 
       goBack();
     } catch (error) {
       setIsLoading(false);
       Alert.alert('Erro ao tentar cadastrar produto!');
+    }
+  };
+
+  const handleEditProduct = async () => {
+    try {
+      setIsLoading(true);
+
+      const formValid = validateForm();
+
+      if (!formValid) {
+        return;
+      }
+
+      let imageUrl = '';
+      let imagePath = '';
+
+      if (image && image !== product.imageUrl) {
+        const imageId = uuid.v4();
+
+        const reference = storage().ref(`images/products/${imageId}.png`);
+
+        await reference.putFile(image);
+
+        imageUrl = await reference.getDownloadURL();
+        imagePath = reference.fullPath;
+      } else {
+        imageUrl = product.imageUrl;
+        imagePath = product.imagePath;
+      }
+
+      await firestore()
+        .collection('products')
+        .doc(product.id)
+        .update({
+          name,
+          name_insensitive: name.trim().toLowerCase(),
+          description,
+          priceP: Number(priceP),
+          priceM: Number(priceM),
+          priceG: Number(priceG),
+          imageUrl,
+          imagePath,
+        });
+
+      Alert.alert('Produto atualizado com sucesso');
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      Alert.alert('Erro ao tentar atualizar produto!');
+    }
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      await firestore().collection('products').doc(product.id).delete();
+
+      Alert.alert('Produto deletado com sucesso');
+
+      goBack();
+    } catch (error) {
+      Alert.alert('Erro ao tentar deletar produto!');
     }
   };
 
@@ -109,9 +191,11 @@ const RegisterProduct: React.FC = () => {
         </S.ButtonBack>
         <S.Title>Cadastrar</S.Title>
 
-        <S.ButtonDelete>
-          <S.ButtonDeleteText>Deletar</S.ButtonDeleteText>
-        </S.ButtonDelete>
+        {editMode && (
+          <S.ButtonDelete onPress={handleDeleteProduct}>
+            <S.ButtonDeleteText>Deletar</S.ButtonDeleteText>
+          </S.ButtonDelete>
+        )}
       </S.Header>
 
       <S.WrapperUpload>
@@ -149,7 +233,7 @@ const RegisterProduct: React.FC = () => {
         <InputPrice size="G" value={priceG} onChangeText={setPriceG} />
         <S.ButtonRegister
           title={`${editMode ? 'Editar' : 'Cadastrar'}  pizza`}
-          onPress={handleRegisterProduct}
+          onPress={editMode ? handleEditProduct : handleRegisterProduct}
           loading={isLoading}
         />
       </S.WrapperForm>
