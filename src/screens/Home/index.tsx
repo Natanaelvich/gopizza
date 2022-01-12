@@ -26,6 +26,7 @@ const Home: React.FC = () => {
   const { signOut, user } = useAuth();
 
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const handleNavigateToRegisterProduct = () => {
     navigation.navigate('RegisterProduct');
@@ -74,6 +75,15 @@ const Home: React.FC = () => {
     setProducts(data as Product[]);
   }
 
+  const handleSearch = () => {
+    fetchProducts(searchValue);
+  };
+
+  const handleClear = () => {
+    setSearchValue('');
+    fetchProducts('');
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -87,7 +97,12 @@ const Home: React.FC = () => {
           />
         </S.WrapperTitleAndButtonExit>
 
-        <SearchMenu />
+        <SearchMenu
+          value={searchValue}
+          onChangeText={setSearchValue}
+          handleSearch={handleSearch}
+          handleClear={handleClear}
+        />
       </S.Header>
 
       <S.Content>
