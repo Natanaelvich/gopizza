@@ -54,6 +54,26 @@ const Home: React.FC = () => {
     return () => subscriber();
   }, []);
 
+  async function fetchProducts(value: string) {
+    const formatedValue = value.toLocaleLowerCase().trim();
+
+    const response = await firestore()
+      .collection('products')
+      .orderBy('name_insensitive')
+      .startAt(formatedValue)
+      .endAt(`${formatedValue}\uf8ff`)
+      .get();
+
+    const data = response.docs.map(d => {
+      return {
+        id: d.id,
+        ...d.data(),
+      };
+    });
+
+    setProducts(data as Product[]);
+  }
+
   return (
     <S.Container>
       <S.Header>
