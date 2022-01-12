@@ -15,9 +15,9 @@ const Menu: React.FC<Props> = ({ products }) => {
 
   const { user } = useAuth();
 
-  const handleNavigate = () => {
-    if (user?.isAdmin) {
-      navigation.navigate('RegisterProduct', { editMode: true });
+  const handleNavigate = (product?: Product) => {
+    if (user?.isAdmin && product) {
+      navigation.navigate('RegisterProduct', { editMode: true, product });
     } else {
       navigation.navigate('Request');
     }
@@ -27,12 +27,16 @@ const Menu: React.FC<Props> = ({ products }) => {
     <S.Container>
       <S.Header>
         <S.Title>Cardápio</S.Title>
-        <S.SizeResults>32 pizzas</S.SizeResults>
+        <S.SizeResults>{products.length} pizzas</S.SizeResults>
       </S.Header>
 
       <S.ProductsList>
         {products.map(p => (
-          <CardProduct onPress={handleNavigate} product={p} />
+          <CardProduct
+            key={p.id}
+            onPress={() => handleNavigate(p)}
+            product={p}
+          />
         ))}
       </S.ProductsList>
     </S.Container>
