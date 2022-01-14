@@ -12,7 +12,7 @@ type Props = {
 const ProductImage: React.FC<Props> = ({ uri, width, height, ...res }) => {
   return (
     <S.WrapperImage style={{ width, height, borderRadius: width / 2 }} {...res}>
-      <S.Image source={{ uri }} />
+      {!!uri && <S.Image source={{ uri }} />}
     </S.WrapperImage>
   );
 };
