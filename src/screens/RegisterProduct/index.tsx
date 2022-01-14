@@ -23,6 +23,7 @@ const RegisterProduct: React.FC = () => {
     (params as { editMode: string; product: Product }) || {};
 
   const [image, setImage] = useState('');
+  const [imagePath, setImagePath] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [priceP, setPriceP] = useState('');
@@ -52,6 +53,7 @@ const RegisterProduct: React.FC = () => {
       setPriceG('35');
     } else {
       setImage(product.imageUrl);
+      setImagePath(product.imagePath);
       setName(product.name);
       setDescription(product.description);
       setPriceP(String(product.priceP));
@@ -86,7 +88,7 @@ const RegisterProduct: React.FC = () => {
       }
 
       let imageUrl = '';
-      let imagePath = '';
+      let _imagePath = '';
 
       if (image) {
         const imageId = uuid.v4();
@@ -96,7 +98,7 @@ const RegisterProduct: React.FC = () => {
         await reference.putFile(image);
 
         imageUrl = await reference.getDownloadURL();
-        imagePath = reference.fullPath;
+        _imagePath = reference.fullPath;
       }
 
       await firestore()
@@ -109,7 +111,7 @@ const RegisterProduct: React.FC = () => {
           priceM: Number(priceM),
           priceG: Number(priceG),
           imageUrl,
-          imagePath,
+          imagePath: _imagePath,
         });
 
       Alert.alert('Produto cadastrado com sucesso');
@@ -133,7 +135,7 @@ const RegisterProduct: React.FC = () => {
       }
 
       let imageUrl = '';
-      let imagePath = '';
+      let _imagePath = '';
 
       if (image && image !== product.imageUrl) {
         const imageId = uuid.v4();
@@ -143,10 +145,10 @@ const RegisterProduct: React.FC = () => {
         await reference.putFile(image);
 
         imageUrl = await reference.getDownloadURL();
-        imagePath = reference.fullPath;
+        _imagePath = reference.fullPath;
       } else {
         imageUrl = product.imageUrl;
-        imagePath = product.imagePath;
+        _imagePath = product.imagePath;
       }
 
       await firestore()
@@ -163,6 +165,9 @@ const RegisterProduct: React.FC = () => {
           imagePath,
         });
 
+      setImage(imageUrl);
+      setImagePath(_imagePath);
+
       Alert.alert('Produto atualizado com sucesso');
       setIsLoading(false);
     } catch (error) {
@@ -173,6 +178,10 @@ const RegisterProduct: React.FC = () => {
 
   const handleDeleteProduct = async () => {
     try {
+      const referenceImageProduct = storage().ref(imagePath);
+
+      await referenceImageProduct.delete();
+
       await firestore().collection('products').doc(product.id).delete();
 
       Alert.alert('Produto deletado com sucesso');
