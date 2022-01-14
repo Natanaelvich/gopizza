@@ -6,7 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import uuid from 'react-native-uuid';
 
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 
 import Input from '@/components/Input';
 
@@ -191,10 +191,12 @@ const RegisterProduct: React.FC = () => {
         </S.ButtonBack>
         <S.Title>Cadastrar</S.Title>
 
-        {editMode && (
+        {editMode ? (
           <S.ButtonDelete onPress={handleDeleteProduct}>
             <S.ButtonDeleteText>Deletar</S.ButtonDeleteText>
           </S.ButtonDelete>
+        ) : (
+          <View style={{ width: 40 }} />
         )}
       </S.Header>
 
