@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { Alert } from 'react-native';
 
@@ -34,7 +34,7 @@ const Request: React.FC = () => {
 
   const [sizeRquestSelected, setSizeRquestSelected] = useState(0);
   const [numberTable, setNumberTable] = useState('');
-  const [quantityRequest, setQuantityRequest] = useState('1');
+  const [quantityRequest, setQuantityRequest] = useState('8');
   const [loading, setLoading] = useState(false);
 
   const { product } = params as { product: Product };
@@ -53,9 +53,9 @@ const Request: React.FC = () => {
     return 0;
   }, [sizeRquestSelected, product, quantityRequest]);
 
-  const handleSaveRequest = async () => {
+  const handleSaveRequest = useCallback(async () => {
     try {
-      if (!sizeRquestSelected || !numberTable || !quantityRequest) {
+      if (!numberTable || !quantityRequest) {
         Alert.alert('Preencha todos os campos');
 
         return;
@@ -77,7 +77,8 @@ const Request: React.FC = () => {
       setLoading(false);
       Alert.alert('Falha ao realizar pedido');
     }
-  };
+  }, [numberTable, quantityRequest, total, product, goBack]);
+
   return (
     <S.Container>
       <S.Header>
