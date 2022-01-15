@@ -1,14 +1,14 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useMemo, useState } from 'react';
+import firestore from '@react-native-firebase/firestore';
+import { Alert } from 'react-native';
 
 import * as S from './styles';
 import Radio from './_components/Radio';
 import Button from '@/components/Button';
 import ProductImage from '@/components/ProductImage';
-
-const imageUri =
-  'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png';
+import { Product } from '../Home';
 
 const optionsRadio = [
   {
@@ -30,8 +30,54 @@ const optionsRadio = [
 
 const Request: React.FC = () => {
   const { goBack } = useNavigation();
-  const [sizeRquestSelected, setSizeRquestSelected] = useState(0);
+  const { params } = useRoute();
 
+  const [sizeRquestSelected, setSizeRquestSelected] = useState(0);
+  const [numberTable, setNumberTable] = useState('');
+  const [quantityRequest, setQuantityRequest] = useState('1');
+  const [loading, setLoading] = useState(false);
+
+  const { product } = params as { product: Product };
+
+  const total = useMemo(() => {
+    if (optionsRadio[sizeRquestSelected].value === 'GRANDE') {
+      return product.priceG * Number(quantityRequest);
+    }
+    if (optionsRadio[sizeRquestSelected].value === 'MÉDIA') {
+      return product.priceM * Number(quantityRequest);
+    }
+    if (optionsRadio[sizeRquestSelected].value === 'PEQUENA') {
+      return product.priceP * Number(quantityRequest);
+    }
+
+    return 0;
+  }, [sizeRquestSelected, product, quantityRequest]);
+
+  const handleSaveRequest = async () => {
+    try {
+      if (!sizeRquestSelected || !numberTable || !quantityRequest) {
+        Alert.alert('Preencha todos os campos');
+
+        return;
+      }
+
+      setLoading(true);
+      await firestore().collection('requests').add({
+        numberTable,
+        quantityRequest,
+        total,
+        productId: product.id,
+        status: 'PREPARANDO',
+      });
+      setLoading(false);
+
+      Alert.alert('Pedido realizado com sucesso');
+      goBack();
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Falha ao realizar pedido');
+    }
+  };
   return (
     <S.Container>
       <S.Header>
@@ -41,9 +87,9 @@ const Request: React.FC = () => {
       </S.Header>
 
       <S.ProductImageWrapper>
-        <ProductImage uri={imageUri} width={240} height={240} />
+        <ProductImage uri={product.imageUrl} width={240} height={240} />
       </S.ProductImageWrapper>
-      <S.Title>Margherita</S.Title>
+      <S.Title>{product.name}</S.Title>
 
       <S.WrapperForm>
         <S.WrapperLabels>
@@ -67,13 +113,25 @@ const Request: React.FC = () => {
         </S.WrapperLabels>
 
         <S.WrapperInputs>
-          <S.InputNumber keyboardType="number-pad" />
-          <S.InputNumber keyboardType="number-pad" />
+          <S.InputNumber
+            keyboardType="number-pad"
+            value={numberTable}
+            onChangeText={setNumberTable}
+          />
+          <S.InputNumber
+            keyboardType="number-pad"
+            value={quantityRequest}
+            onChangeText={setQuantityRequest}
+          />
         </S.WrapperInputs>
 
-        <S.Total>Total: R$ 10,00</S.Total>
+        <S.Total>Total: R$ {total}</S.Total>
 
-        <Button title="Confirmar pedido" />
+        <Button
+          title="Confirmar pedido"
+          onPress={handleSaveRequest}
+          loading={loading}
+        />
       </S.WrapperForm>
     </S.Container>
   );
