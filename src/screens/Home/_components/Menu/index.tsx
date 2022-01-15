@@ -15,11 +15,11 @@ const Menu: React.FC<Props> = ({ products }) => {
 
   const { user } = useAuth();
 
-  const handleNavigate = (product?: Product) => {
-    if (user?.isAdmin && product) {
+  const handleNavigate = (product: Product) => {
+    if (user?.isAdmin) {
       navigation.navigate('RegisterProduct', { editMode: true, product });
     } else {
-      navigation.navigate('Request');
+      navigation.navigate('Request', { product });
     }
   };
 
