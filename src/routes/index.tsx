@@ -19,7 +19,9 @@ declare global {
       Home: undefined;
       SignIn: undefined;
       Requests: undefined;
-      Request: undefined;
+      Request: {
+        product: Product;
+      };
       RegisterProduct:
         | {
             editMode: boolean;
