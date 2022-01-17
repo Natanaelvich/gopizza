@@ -2,35 +2,11 @@ import React from 'react';
 import ProductImage from '@/components/ProductImage';
 
 import * as S from './styles';
-
-const requests = [
-  {
-    id: 1,
-    title: '4 Queijos',
-    description: 'Mesa 01  • Qnt: 1',
-    status: 'Pronto',
-    image:
-      'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png',
-  },
-  {
-    id: 2,
-    title: 'Gauchesca',
-    description: 'Mesa 01  • Qnt: 1',
-    status: 'Preparando',
-    image:
-      'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png',
-  },
-  {
-    id: 3,
-    title: 'Margherita',
-    description: 'Mesa 01  • Qnt: 1',
-    status: 'Entregue',
-    image:
-      'https://marketup-cdn.s3-us-west-2.amazonaws.com/files/947788/products/be798d44-cf92-4d19-9077-78008fd9b2dd.png',
-  },
-];
+import { useRequests } from '@/hooks/useRequests';
 
 const Requests: React.FC = () => {
+  const { requests } = useRequests();
+
   return (
     <S.Container>
       <S.Header>
@@ -46,9 +22,9 @@ const Requests: React.FC = () => {
               index < requests.length - 2
             }
           >
-            <ProductImage uri={r.image} width={104} height={104} />
-            <S.RequesTitle>{r.title}</S.RequesTitle>
-            <S.RequestDescription>{r.description}</S.RequestDescription>
+            <ProductImage uri={r.productImage} width={104} height={104} />
+            <S.RequesTitle>{r.productName}</S.RequesTitle>
+            <S.RequestDescription>{`Mesa ${r.numberTable} • Qnt: ${r.quantityRequest}`}</S.RequestDescription>
 
             <S.StatusBadge status={r.status}>
               <S.StatusBadgeLabel status={r.status}>

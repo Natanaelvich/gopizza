@@ -31,6 +31,7 @@ export const RequestsList = styled.ScrollView.attrs({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 24,
+    alignItems: 'center',
   },
 } as ScrollViewProps)`
   background: ${({ theme }) => theme.COLORS.BACKGROUND};
@@ -44,7 +45,6 @@ export const Request = styled.TouchableOpacity<{
   align-items: center;
   justify-content: center;
   padding: 24px 0;
-
   ${({ theme, borderRight, borderBottom }) => css`
     border-right-width: ${borderRight ? 1 : 0}px;
     border-right-color: ${borderRight ? theme.COLORS.SHAPE : 'transparent'};
@@ -79,12 +79,12 @@ export const StatusBadge = styled.View<{ status: string }>`
   margin-top: 20px;
 
   ${({ theme, status }) => {
-    if (status === 'Pronto') {
+    if (status === 'PRONTO') {
       return css`
         background: ${theme.COLORS.SUCCESS_900};
       `;
     }
-    if (status === 'Preparando') {
+    if (status === 'PREPARANDO') {
       return css`
         background: rgba(197, 148, 26, 0.08);
         border: 1px solid rgba(178, 127, 0, 0.64);
@@ -102,7 +102,7 @@ export const StatusBadgeLabel = styled.Text<{ status: string }>`
   font-size: 12px;
 
   ${({ theme, status }) => {
-    if (status === 'Pronto' || status === 'Entregue') {
+    if (status === 'PRONTO' || status === 'ENTREGUE') {
       return css`
         color: ${theme.COLORS.TITLE};
       `;
