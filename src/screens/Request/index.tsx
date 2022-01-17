@@ -67,6 +67,8 @@ const Request: React.FC = () => {
         quantityRequest,
         total,
         productId: product.id,
+        productImage: product.imageUrl,
+        productName: product.name,
         status: 'PREPARANDO',
       });
       setLoading(false);
