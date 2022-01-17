@@ -1,14 +1,33 @@
 /* eslint-disable no-nested-ternary */
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, { useEffect } from 'react';
+import firestore from '@react-native-firebase/firestore';
 
 import * as S from './styles';
+import { Request, useRequests } from '@/hooks/useRequests';
 
 export default function MyTabBar({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps): JSX.Element {
+  const { changeRequests, requests } = useRequests();
+
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('requests')
+      .onSnapshot(documentSnapshot => {
+        const requestsFirestore = documentSnapshot.docs.map(p => ({
+          id: p.id,
+          ...p.data(),
+        }));
+
+        changeRequests(requestsFirestore as Request[]);
+      });
+
+    return () => subscriber();
+  }, [changeRequests]);
+
   return (
     <S.Container>
       {state.routes.map((route, index) => {
@@ -58,8 +77,10 @@ export default function MyTabBar({
           >
             <S.Title isFocused={isFocused}>{label}</S.Title>
             {route.name === 'Requests' && (
-              <S.Badge>
-                <S.BadgeTitle>1</S.BadgeTitle>
+              <S.Badge hasValue={requests.length > 0}>
+                <S.BadgeTitle hasValue={requests.length > 0}>
+                  {requests.length}
+                </S.BadgeTitle>
               </S.Badge>
             )}
           </S.Button>
