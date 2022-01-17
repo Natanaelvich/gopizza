@@ -8,6 +8,7 @@ import theme from './theme';
 import Routes from './routes';
 import WrapperGestureHandler from './components/WrapperGestureHandler';
 import { AuthProvider } from './hooks/useAuth';
+import { RequestsProvider } from './hooks/useRequests';
 
 const Main: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -21,10 +22,16 @@ const Main: React.FC = () => {
   return (
     <WrapperGestureHandler>
       <AuthProvider>
-        <ThemeProvider theme={theme}>
-          <StatusBar style="light" translucent backgroundColor="transparent" />
-          <Routes />
-        </ThemeProvider>
+        <RequestsProvider>
+          <ThemeProvider theme={theme}>
+            <StatusBar
+              style="light"
+              translucent
+              backgroundColor="transparent"
+            />
+            <Routes />
+          </ThemeProvider>
+        </RequestsProvider>
       </AuthProvider>
     </WrapperGestureHandler>
   );
