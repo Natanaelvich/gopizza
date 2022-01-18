@@ -9,6 +9,7 @@ export type Request = {
   quantityRequest: string;
   status: string;
   total: string;
+  createAt: Date;
 };
 
 export type RequestsContextData = {
