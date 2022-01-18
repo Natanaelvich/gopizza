@@ -70,6 +70,7 @@ const Request: React.FC = () => {
         productImage: product.imageUrl,
         productName: product.name,
         status: 'PREPARANDO',
+        createAt: firestore.FieldValue.serverTimestamp(),
       });
       setLoading(false);
 
