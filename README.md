@@ -17,8 +17,7 @@ Complete application to assist Waiters of a Pizzeria. In this App, the Administr
 ## 🖼 GIFs
 
 <p align='center'>
-<img src='' width='375' />
-<img src='' width='375' />
+<img src='https://user-images.githubusercontent.com/52014318/149862545-c5691662-1c2d-480d-ab7e-ab85de7621c0.gif' />
 </p>
 
 
