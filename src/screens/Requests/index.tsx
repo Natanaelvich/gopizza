@@ -16,6 +16,7 @@ const Requests: React.FC = () => {
       <S.RequestsList>
         {requests.map((r, index) => (
           <S.Request
+            key={r.id}
             borderRight={(index + 1) % 2 !== 0}
             borderBottom={
               (requests.length % 2 !== 0 && index < requests.length - 1) ||
