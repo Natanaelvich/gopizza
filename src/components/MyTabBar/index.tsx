@@ -16,6 +16,7 @@ export default function MyTabBar({
   useEffect(() => {
     const subscriber = firestore()
       .collection('requests')
+      .orderBy('createAt')
       .onSnapshot(documentSnapshot => {
         const requestsFirestore = documentSnapshot.docs.map(p => ({
           id: p.id,
